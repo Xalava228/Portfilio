@@ -1,0 +1,1302 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Богдан — Веб-дизайнер</title>
+    <meta name="description" content="Богдан — веб-дизайнер. Создаю адаптивные интерфейсы и работаю в Figma.">
+    <meta property="og:title" content="Богдан — Веб-дизайнер">
+    <meta property="og:description" content="Веб-дизайнер, создаю адаптивные интерфейсы и работаю в Figma.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0a0a;
+            --bg-alt: #0d0d0d;
+            --text: #ffffff;
+            --text-muted: #9ca3af;
+            --text-dim: #6b7280;
+            --text-faint: #4b5563;
+            --border: #1f2937;
+            --accent: #ffffff;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .font-display {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Grain overlay */
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Section padding */
+        .section-padding {
+            padding: 80px 16px;
+        }
+        @media (min-width: 768px) {
+            .section-padding { padding: 120px 48px; }
+        }
+        @media (min-width: 1024px) {
+            .section-padding { padding: 160px 64px; }
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
+        .hero-image-wrapper {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .hero-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+        }
+        @media (min-width: 768px) {
+            .hero-overlay { background: rgba(0,0,0,0.3); }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 128px;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+        @media (min-width: 768px) {
+            .hero-content {
+                align-items: center;
+                padding-bottom: 0;
+                padding-left: 48px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .hero-content { padding-left: 64px; }
+        }
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+            font-size: 13vw;
+            color: #ffffff;
+        }
+        @media (min-width: 640px) {
+            .hero-title { font-size: 10vw; }
+        }
+        @media (min-width: 768px) {
+            .hero-title { font-size: 8vw; }
+        }
+        .hero-subtitle {
+            margin-top: 24px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            max-width: 400px;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        @media (min-width: 640px) {
+            .hero-subtitle { font-size: 16px; }
+        }
+        @media (min-width: 768px) {
+            .hero-subtitle { margin-top: 32px; max-width: 450px; }
+        }
+
+        /* Navigation */
+        .nav-top-right {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 50;
+            padding: 24px;
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .nav-top-right {
+                display: flex;
+                padding: 40px;
+                gap: 24px;
+                align-items: center;
+            }
+        }
+        .nav-top-right a {
+            font-size: 14px;
+            color: #ffffff;
+            mix-blend-mode: difference;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        .nav-top-right a:hover { opacity: 0.6; }
+
+        .nav-bottom-right {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            z-index: 50;
+            padding: 40px;
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .nav-bottom-right {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 12px;
+            }
+        }
+        .nav-bottom-right a {
+            font-size: 14px;
+            color: #ffffff;
+            mix-blend-mode: difference;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            padding: 4px 0;
+            position: relative;
+        }
+        .nav-bottom-right a:hover { opacity: 0.6; }
+        .nav-bottom-right a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%;
+            height: 1px;
+            background: #ffffff;
+        }
+
+        /* Mobile nav */
+        .nav-mobile {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 50;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        @media (min-width: 768px) {
+            .nav-mobile { display: none; }
+        }
+        .nav-mobile-menu-btn {
+            font-size: 14px;
+            color: #ffffff;
+            mix-blend-mode: difference;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-mobile-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 24px;
+            opacity: 0;
+            transform: translateY(-16px);
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+        .nav-mobile-links.open {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .nav-mobile-links a {
+            font-size: 14px;
+            color: #ffffff;
+            mix-blend-mode: difference;
+            text-decoration: none;
+            padding: 4px 0;
+            transition: opacity 0.3s;
+        }
+        .nav-mobile-links a:hover { opacity: 0.6; }
+        .nav-mobile-right {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        .nav-mobile-right a {
+            font-size: 14px;
+            color: #ffffff;
+            mix-blend-mode: difference;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        .nav-mobile-right a:hover { opacity: 0.6; }
+
+        /* Section label */
+        .section-label {
+            font-size: 14px;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .section-label-line {
+            width: 24px;
+            height: 1px;
+            background: var(--text-faint);
+            margin-top: 8px;
+        }
+
+        /* Section title */
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 9vw;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            margin-bottom: 48px;
+            color: #ffffff;
+        }
+        @media (min-width: 1024px) {
+            .section-title { font-size: 6vw; margin-bottom: 80px; }
+        }
+
+        /* Grid layouts */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+        @media (min-width: 1024px) {
+            .grid-2col { grid-template-columns: 1fr 1fr; gap: 96px; }
+        }
+
+        /* About images */
+        .about-img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.6s;
+        }
+        .about-img-caption {
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* About text */
+        .about-text {
+            font-size: 16px;
+            color: #d1d5db;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        @media (min-width: 1024px) {
+            .about-text { font-size: 18px; }
+        }
+
+        /* Big quote */
+        .big-quote {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 6vw;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            color: #d1d5db;
+        }
+        @media (min-width: 1024px) {
+            .big-quote { font-size: 5vw; }
+        }
+        .big-quote .highlight {
+            color: #ffffff;
+            text-decoration: underline;
+            text-underline-offset: 8px;
+        }
+        .big-quote-sub {
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            line-height: 1.6;
+        }
+
+        /* Skills */
+        .skill-item {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+        }
+        .skill-item span {
+            font-size: 18px;
+            color: #d1d5db;
+            font-weight: 300;
+        }
+        @media (min-width: 768px) {
+            .skill-item span { font-size: 20px; }
+        }
+        @media (min-width: 1024px) {
+            .skill-item span { font-size: 24px; }
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        @media (min-width: 768px) {
+            .skills-grid { grid-template-columns: 1fr 1fr; column-gap: 64px; row-gap: 24px; }
+        }
+
+        /* Work experience */
+        .work-item {
+            border-top: 1px solid var(--border);
+            padding: 32px 0;
+        }
+        @media (min-width: 768px) {
+            .work-item { padding: 48px 0; }
+        }
+        @media (min-width: 1024px) {
+            .work-item { padding: 64px 0; }
+        }
+        .work-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        @media (min-width: 1024px) {
+            .work-grid { grid-template-columns: 5fr 2fr 5fr; gap: 32px; }
+        }
+        .work-title {
+            font-size: 20px;
+            font-weight: 300;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        @media (min-width: 768px) { .work-title { font-size: 24px; } }
+        @media (min-width: 1024px) { .work-title { font-size: 30px; } }
+        .work-company {
+            font-size: 16px;
+            color: #9ca3af;
+        }
+        @media (min-width: 1024px) { .work-company { font-size: 18px; } }
+        .work-location {
+            font-size: 14px;
+            color: var(--text-faint);
+            margin-top: 8px;
+        }
+        .work-date {
+            font-size: 14px;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .work-desc {
+            color: #9ca3af;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+        @media (min-width: 1024px) { .work-desc { font-size: 16px; } }
+        .work-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .work-tag {
+            padding: 4px 12px;
+            font-size: 12px;
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+            border-radius: 9999px;
+        }
+
+        /* Education */
+        .edu-title {
+            font-size: 20px;
+            font-weight: 300;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+        @media (min-width: 1024px) { .edu-title { font-size: 24px; } }
+        .edu-text {
+            color: #9ca3af;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        @media (min-width: 1024px) { .edu-text { font-size: 16px; } }
+        .edu-date {
+            font-size: 14px;
+            color: var(--text-dim);
+        }
+
+        /* Writing / Speaking list */
+        .list-item {
+            display: block;
+            border-top: 1px solid var(--border);
+            padding: 24px 16px;
+            margin: 0 -16px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .list-item:hover { background: rgba(31,41,55,0.3); }
+        @media (min-width: 768px) {
+            .list-item { padding: 32px 16px; }
+        }
+        .list-item-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        @media (min-width: 768px) {
+            .list-item-inner {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+            }
+        }
+        .list-item-title {
+            font-size: 18px;
+            color: #ffffff;
+            font-weight: 300;
+            transition: color 0.3s;
+        }
+        .list-item:hover .list-item-title { color: #d1d5db; }
+        @media (min-width: 768px) { .list-item-title { font-size: 20px; } }
+        @media (min-width: 1024px) { .list-item-title { font-size: 24px; } }
+        .list-item-sub {
+            font-size: 14px;
+            color: var(--text-dim);
+            margin-top: 4px;
+        }
+        @media (min-width: 768px) { .list-item-sub { margin-top: 8px; } }
+        .list-item-year {
+            font-size: 14px;
+            color: var(--text-faint);
+        }
+
+        /* Contact */
+        .contact-heading {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 10vw;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            margin-bottom: 32px;
+        }
+        @media (min-width: 1024px) {
+            .contact-heading { font-size: 8vw; }
+        }
+        .contact-slow-title {
+            font-size: 20px;
+            color: #ffffff;
+            font-weight: 300;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+        @media (min-width: 768px) { .contact-slow-title { font-size: 24px; } }
+        @media (min-width: 1024px) { .contact-slow-title { font-size: 30px; } }
+        .contact-slow-sub {
+            font-size: 14px;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .contact-region {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--border);
+            padding: 20px 16px;
+            margin: 0 -16px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .contact-region:hover { background: rgba(31,41,55,0.3); }
+        @media (min-width: 768px) { .contact-region { padding: 24px 16px; } }
+        .contact-region-name {
+            font-size: 14px;
+            color: #9ca3af;
+            letter-spacing: 0.1em;
+        }
+        .contact-region-arrow {
+            color: var(--text-dim);
+            transition: color 0.3s;
+        }
+        .contact-region:hover .contact-region-arrow { color: #ffffff; }
+        .contact-direct a {
+            font-size: 18px;
+            color: #d1d5db;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            transition: color 0.3s;
+        }
+        .contact-direct a:hover { color: #ffffff; }
+        @media (min-width: 1024px) {
+            .contact-direct a { font-size: 20px; }
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 96px;
+            padding-top: 32px;
+            border-top: 1px solid #111827;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+        @media (min-width: 768px) {
+            footer { flex-direction: row; justify-content: space-between; }
+        }
+        @media (min-width: 1024px) {
+            footer { margin-top: 128px; }
+        }
+        footer p {
+            font-size: 12px;
+            color: var(--text-faint);
+        }
+
+        /* Utility */
+        .max-w-7xl { max-width: 80rem; margin: 0 auto; }
+        .max-w-5xl { max-width: 64rem; }
+        .max-w-2xl { max-width: 42rem; }
+        .bg-alt { background-color: var(--bg-alt); }
+        .mb-16 { margin-bottom: 64px; }
+        .mb-24 { margin-bottom: 96px; }
+        .mb-32 { margin-bottom: 128px; }
+        .mt-6 { margin-top: 24px; }
+        .mt-16 { margin-top: 64px; }
+        .mt-24 { margin-top: 96px; }
+        .pt-12 { padding-top: 48px; }
+        .pt-16 { padding-top: 64px; }
+        .border-t-dim { border-top: 1px solid var(--border); }
+        .w-full-line { width: 100%; height: 1px; background: #374151; margin-bottom: 48px; }
+        @media (min-width: 1024px) { .w-full-line { margin-bottom: 64px; } }
+
+        .flex-center { display: flex; align-items: center; }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+        }
+        @media (min-width: 1024px) {
+            .projects-grid { gap: 96px; }
+        }
+        .project-card {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        @media (min-width: 1024px) {
+            .project-card { grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+        }
+        .project-media {
+            width: 100%;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            background: #0d0d0d;
+        }
+        .project-media img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s;
+        }
+        .project-media.stacked {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border: none;
+            background: transparent;
+        }
+        .project-media.stacked img {
+            border: 1px solid var(--border);
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+        .project-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 14px;
+            color: var(--text-faint);
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+        }
+        .project-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 26px;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+        @media (min-width: 1024px) {
+            .project-title { font-size: 34px; }
+        }
+        .project-desc {
+            font-size: 15px;
+            color: #9ca3af;
+            line-height: 1.7;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        @media (min-width: 1024px) { .project-desc { font-size: 16px; } }
+        .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        @media (min-width: 768px) {
+            .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+            .gallery-grid .gallery-item:last-child { grid-column: span 1; }
+        }
+        @media (min-width: 1024px) {
+            .gallery-grid { grid-template-columns: repeat(5, 1fr); }
+            .gallery-grid .gallery-item:last-child { grid-column: span 1; }
+        }
+        .gallery-item { aspect-ratio: 3/4; }
+        .gallery-item:hover img { transform: scale(1.04); }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s;
+        }
+
+        .gallery-main-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        @media (min-width: 640px) {
+            .gallery-main-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .gallery-main-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        .gallery-auto-item {
+            background: #0d0d0d;
+        }
+        .gallery-auto-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s;
+        }
+
+        /* Bento Gallery */
+        .bento-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+        @media (max-width: 767px) {
+            .bento-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .bento-wide { grid-column: span 2 !important; }
+            .bento-full { grid-column: span 2 !important; }
+        }
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .bento-gallery {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        .bento-item {
+            overflow: hidden;
+            background: #0d0d0d;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+        .bento-wide { grid-column: span 2; }
+        .bento-full { grid-column: span 4; }
+        .bento-tall-sm { height: 220px; }
+        .bento-tall-md { height: 320px; }
+        @media (min-width: 1024px) {
+            .bento-tall-sm { height: 260px; }
+            .bento-tall-md { height: 380px; }
+        }
+        .bento-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        .bento-item:hover .bento-img {
+            transform: scale(1.03);
+        }
+
+        /* Adaptive Masonry Gallery */
+        .masonry-gallery {
+            column-gap: 12px;
+        }
+        @media (max-width: 639px) {
+            .masonry-gallery { column-count: 2; }
+        }
+        @media (min-width: 640px) and (max-width: 1023px) {
+            .masonry-gallery { column-count: 3; }
+        }
+        @media (min-width: 1024px) and (max-width: 1439px) {
+            .masonry-gallery { column-count: 4; }
+        }
+        @media (min-width: 1440px) {
+            .masonry-gallery { column-count: 5; }
+        }
+        .masonry-item {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            line-height: 0;
+            font-size: 0;
+            vertical-align: top;
+            break-inside: avoid;
+            -webkit-column-break-inside: avoid;
+            page-break-inside: avoid;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .masonry-item.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .masonry-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            vertical-align: top;
+            transition: transform 0.6s ease;
+        }
+        .masonry-item:hover .masonry-img {
+            transform: scale(1.03);
+        }
+        @media (min-width: 1200px) {
+            .masonry-item.masonry-item-banner {
+                column-span: all;
+            }
+        }
+
+        .hero-image-wrapper img {
+            transition: filter 0.7s;
+        }
+        .hero:hover .hero-image-wrapper img {
+            filter: brightness(1.05);
+        }
+
+        .project-card:nth-child(even) .project-info { order: 2; }
+        @media (max-width: 1023px) {
+            .project-card .project-info { order: 2; }
+            .project-card .project-media, .project-card .project-media.stacked { order: 1; }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Order helpers for lg */
+        @media (min-width: 1024px) {
+            .lg-order-1 { order: 1; }
+            .lg-order-2 { order: 2; }
+            .lg-text-right { text-align: right; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="grain-overlay" aria-hidden="true"></div>
+
+<!-- Mobile Navigation -->
+<div class="nav-mobile">
+    <div>
+        <button class="nav-mobile-menu-btn" onclick="toggleMobileMenu()">Меню</button>
+        <div class="nav-mobile-links" id="mobileMenu">
+            <a href="#about">Обо мне</a>
+            <a href="#skills">Навыки</a>
+            <a href="#projects">Проекты</a>
+            <a href="#work">Опыт</a>
+            <a href="#education">Образование</a>
+            <a href="#awards">Достижения</a>
+            <a href="#contact">Контакты</a>
+        </div>
+    </div>
+    <div class="nav-mobile-right">
+        <a href="mailto:bogdankra4954@gmail.com">Почта</a>
+        <a href="tel:+79145783655">Тел.</a>
+    </div>
+</div>
+
+<!-- Desktop Top Right -->
+<div class="nav-top-right">
+    <a href="mailto:bogdankra4954@gmail.com">Почта</a>
+    <a href="tel:+79145783655">+7 914 578-36-55</a>
+</div>
+
+<!-- Desktop Bottom Right Nav -->
+<nav class="nav-bottom-right">
+    <a href="#about" class="active">Обо мне</a>
+    <a href="#skills">Навыки</a>
+    <a href="#projects">Проекты</a>
+    <a href="#work">Опыт</a>
+    <a href="#education">Образование</a>
+    <a href="#awards">Достижения</a>
+    <a href="#contact">Контакты</a>
+</nav>
+
+<main>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-image-wrapper">
+            <img src="https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Богдан — веб-дизайнер">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="max-w-5xl">
+                <h1 class="hero-title">
+                    <span style="display:block; color:#ffffff;">БОГДАН</span>
+                    <span style="display:block; color:#ffffff;">ВЕБ-ДИЗАЙНЕР</span>
+                </h1>
+                <p class="hero-subtitle">Создаю адаптивные интерфейсы в Figma, провожу редизайн и доработку проектов. Победитель регионального чемпионата «Профессионалы» по веб-технологиям.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section-padding">
+        <div class="max-w-7xl">
+            <div class="mb-16 fade-in">
+                <span class="section-label">О себе</span>
+                <div class="section-label-line"></div>
+            </div>
+
+            <div class="grid-2col mb-32 fade-in">
+                <div style="order:2;" class="lg-order-1">
+                    <img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Рабочее место дизайнера" class="about-img">
+                    <p class="about-img-caption">ДИЗАЙН ИНТЕРФЕЙСОВ — FIGMA</p>
+                </div>
+                <div style="order:1;" class="lg-order-2 flex-center">
+                    <p class="about-text">Я — веб-дизайнер и выпускник специальности «Информационные системы и программирование» Благовещенского политехнического колледжа, окончивший с отличием. Разрабатываю адаптивные интерфейсы в Figma, провожу редизайн и доработку существующих проектов.</p>
+                </div>
+            </div>
+
+            <div class="mb-32 fade-in">
+                <h2 class="big-quote">"1 МЕСТО<br><span class="highlight">ПО КОМПЕТЕНЦИИ</span><br>«ВЕБ-ТЕХНОЛОГИИ»<br>В РЕГИОНАЛЬНОМ ЧЕМПИОНАТЕ."</h2>
+                <p class="big-quote-sub">ЧЕМПИОНАТ<br>«ПРОФЕССИОНАЛЫ»</p>
+            </div>
+
+            <div class="grid-2col fade-in">
+                <div>
+                    <img src="https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Веб-разработка" class="about-img">
+                    <p class="about-img-caption">ДИПЛОМНЫЙ ПРОЕКТ — ФЕДЕРАЦИЯ «ВИТЯЗЬ»</p>
+                </div>
+                <div class="flex-center">
+                    <p class="about-text">В качестве дипломной работы разработал полноценный веб-сайт для АООО «Федерация самбо и дзюдо "Витязь"», который сейчас используется в реальной работе компании-заказчика. Ответственно подхожу к задачам, быстро нахожу общий язык с коллегами и конструктивно реагирую на обратную связь. Активно интересуюсь и изучаю нейросети.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section-padding bg-alt">
+        <div class="max-w-7xl">
+            <div class="mb-16 fade-in">
+                <span class="section-label">Экспертиза</span>
+                <div class="section-label-line"></div>
+            </div>
+            <h2 class="section-title fade-in">НАВЫКИ</h2>
+            <div class="skills-grid">
+                <div class="skill-item fade-in"><span style="color:#d1d5db;">UI/UX-дизайн</span></div>
+                <div class="skill-item fade-in"><span style="color:#d1d5db;">Figma</span></div>
+                <div class="skill-item fade-in"><span style="color:#d1d5db;">Адаптивная вёрстка</span></div>
+                <div class="skill-item fade-in"><span style="color:#d1d5db;">Редизайн проектов</span></div>
+                <div class="skill-item fade-in"><span style="color:#d1d5db;">Веб-технологии (HTML/CSS)</span></div>
+                <div class="skill-item fade-in"><span style="color:#d1d5db;">Прототипирование</span></div>
+                <div class="skill-item fade-in"><span style="color:#d1d5db;">Дизайн-макеты</span></div>
+                <div class="skill-item fade-in"><span style="color:#d1d5db;">Нейросети в дизайне</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section-padding bg-alt">
+        <div class="max-w-7xl">
+            <div class="mb-16 fade-in">
+                <span class="section-label">Портфолио</span>
+                <div class="section-label-line"></div>
+            </div>
+            <h2 class="section-title fade-in">ПРОЕКТЫ</h2>
+
+            <div class="projects-grid">
+                <div class="project-card fade-in">
+                    <div class="project-info">
+                        <p class="project-number">01 — ВЕБ-САЙТ</p>
+                        <h3 class="project-title">Спортивный клуб «Витязь»</h3>
+                        <p class="project-desc">Разработал полноценный веб-сайт для АООО «Спортивный клуб самбо и дзюдо "Витязь"» с административной панелью управления. Проект используется в реальной работе компании-заказчика.</p>
+                        <div class="work-tags">
+                            <span class="work-tag">UI/UX</span>
+                            <span class="work-tag">Адаптивная вёрстка</span>
+                            <span class="work-tag">Админ-панель</span>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <img src="https://storage.yandexcloud.net/timenote/tmp/5d23ea6e47445da17b53fed24b6364fc5a35507474467ccf1220d3d0bc1b1fb3.jpg" alt="Веб-сайт клуба Витязь">
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-info">
+                        <p class="project-number">02 — БАННЕРЫ</p>
+                        <h3 class="project-title">Разработка баннеров INVI-SHOP</h3>
+                        <p class="project-desc">Создал рекламные баннеры д��я интернет-магазина invi-shop: акценты на новинках и ассортименте, чистая типографика и продуманная композиция для веб-размещения.</p>
+                        <div class="work-tags">
+                            <span class="work-tag">Графический дизайн</span>
+                            <span class="work-tag">Баннеры</span>
+                            <span class="work-tag">Веб-графика</span>
+                        </div>
+                    </div>
+                    <div class="project-media stacked" style="align-self: start;">
+                        <img src="https://storage.yandexcloud.net/timenote/tmp/5b61dcb3af77012d56315e1e3eb7dfeb63a23493d7501faeec97a2b5654d398e.jpg" alt="Баннер INVI-SHOP">
+                        <img src="https://storage.yandexcloud.net/timenote/tmp/c997e9df59541953508ce4358ee36e3c473363c0da8e674979d7ed5de551410a.jpg" alt="Баннер INVI-SHOP">
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-info">
+                        <p class="project-number">03 — АДАПТАЦИЯ</p>
+                        <h3 class="project-title">Адаптация баннеров MARIO-STORM</h3>
+                        <p class="project-desc">Адаптировал рекламные баннеры для стоматологической клиники «Марио» под разные разрешения — от горизонтальных до квадратных форматов с сохранением иерархии и читаемости.</p>
+                        <div class="work-tags">
+                            <span class="work-tag">Адаптация форматов</span>
+                            <span class="work-tag">Баннеры</span>
+                            <span class="work-tag">Ретаргет размеров</span>
+                        </div>
+                    </div>
+                    <div class="project-media stacked" style="align-self: start;">
+                        <img src="https://storage.yandexcloud.net/timenote/tmp/db6804c82a2db0ee352b9314c477305c13a01f52aeed7bcf926050b8cf28340b.jpg" alt="Баннер Марио горизонтальный">
+                        <img src="https://storage.yandexcloud.net/timenote/tmp/91708aa01e0b0bfb5dd650d57c360b8c5eccfbaa279fa048a1ed426d062c327c.jpg" alt="Баннер Марио квадратный">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery -->
+            <div style="margin-top: 96px;" class="fade-in">
+                <div style="margin-bottom: 32px;">
+                    <span class="section-label">Графические работы</span>
+                    <div class="section-label-line"></div>
+                </div>
+                <div class="masonry-gallery" id="masonryGallery">
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/82eef2e0a1165b25707f2b18905817b1bc4250e1b072dbc772671597ef5bd7ad.jpg" alt="HiWatch камера" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/655ea28d6d981f42449b9f6878a348a5f5b49cbfd40d00f747e3ac917eb7fd82.jpg" alt="FLOW регистраторы" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/3760f4f041f7dcfbad2e1557edfaddcc913be94a623ac288ee5da4281cc9b4cd.jpg" alt="Видеодомофон FLOW" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/588d37fddf6e27badd0f467e0fbabf40bfdad47db46a006c0f7f8630a92e979f.jpg" alt="Охранная сигнализация" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/2bd48eb28060e7e29385c9e3e4044eaedde760b869791188f2385b2029721940.jpg" alt="Пожарное оборудование" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/f00dbe7ded6b7dd22519e6fbfb7d9bb0db3aa04157c666da8492c61fce4b2c68.jpg" alt="Центр Пищевых Технологий — портфолио 1" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/6d14794758615de79e484d4c2d6549d41de150f59d2fd55c479640831146265f.jpg" alt="Центр Пищевых Технологий — портфолио 2" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/b50194db5f5eabcd3f29dd166b63b566ba5baa94a131854747a014c58dfcf48b.jpg" alt="Амурстрой — портфолио 1" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/e8d65e01ceb84526098c56a71263f25f1148cd96f2adfaae3fcd05d580448120.jpg" alt="Амурстрой — портфолио 2" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/e5ba984c5d444205b1fb865c6f9dd64b864d4bdeb955042f9124d2773813513c.jpg" alt="ФКУ Дирекция космодрома Восточный" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="images/graphic-works/amur-gma-design.png" alt="Амурская ГМА — сайт образовательного учреждения" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="images/graphic-works/amur-gma-works.png" alt="Амурская ГМА — проектирование, дизайн и разработка на 1С-Битрикс" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="images/graphic-works/brend-motors.png" alt="Бренд Моторс — сайт-каталог спецтехники" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="images/graphic-works/titanklav-design.png" alt="Титанклав — интернет-магазин шин и дисков" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="images/graphic-works/titanklav-works.png" alt="Титанклав — внедрение на 1С-Битрикс, интеграция с 1С и доставкой" class="masonry-img"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame.png" alt="Home Master — рекламный баннер производителя окон и дверей" class="masonry-img"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/onebanner.png" alt="Пир Экспо 2025 — рекламный баннер выставки" class="masonry-img"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/banner.png" alt="ЧПУ станки для предприятий — рекламный баннер" class="masonry-img"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 5112.png" alt="Лазерные станки для резки металла — рекламный баннер" class="masonry-img"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 5101.png" alt="ЧПУ станки для предприятий — промо-баннер со станком BR 650" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="images/graphic-works/Frame 9.png" alt="Тайский бокс — рекламный баннер с расписанием занятий" class="masonry-img"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 27.png" alt="Поступление легковых шин HAIDA — баннер" class="masonry-img"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 16.png" alt="Купи комплект летних шин — промо-баннер" class="masonry-img"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 3.png" alt="Группа компаний Титанклав — графический баннер" class="masonry-img"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORK -->
+    <section id="work" class="section-padding bg-alt">
+        <div class="max-w-7xl">
+            <div class="mb-16 fade-in">
+                <span class="section-label">Карьера</span>
+                <div class="section-label-line"></div>
+            </div>
+            <h2 class="section-title fade-in">ОПЫТ<br>РАБОТЫ</h2>
+
+            <div class="work-item fade-in">
+                <div class="work-grid">
+                    <div>
+                        <h3 class="work-title">Веб-дизайнер</h3>
+                        <p class="work-company">Z-LABS (ЗЭТ-ЛАБС)</p>
+                        <p class="work-location">Удалённо</p>
+                    </div>
+                    <div>
+                        <p class="work-date">Июль 2025 — Декабрь 2025</p>
+                    </div>
+                    <div>
+                        <p class="work-desc">Разрабатываю интерфейсы для сайтов различной тематики, создаю адаптивные макеты в Figma, провожу редизайн и доработку существующих проектов.</p>
+                        <div class="work-tags">
+                            <span class="work-tag">Figma</span>
+                            <span class="work-tag">UI/UX-дизайн</span>
+                            <span class="work-tag">Адаптивные макеты</span>
+                            <span class="work-tag">Редизайн</span>
+                            <span class="work-tag">Веб-интерфейсы</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="border-top: 1px solid var(--border);"></div>
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="section-padding">
+        <div class="max-w-7xl">
+            <div class="mb-16 fade-in">
+                <span class="section-label">Образование</span>
+                <div class="section-label-line"></div>
+            </div>
+            <h2 class="section-title fade-in">ОБРАЗОВАНИЕ</h2>
+
+            <div style="display:flex; flex-direction:column; gap:64px;">
+                <div class="grid-2col fade-in" style="gap:32px;">
+                    <div>
+                        <img src="https://images.pexels.com/photos/159775/library-la-trobe-study-students-159775.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Благовещенский политехнический колледж" class="about-img">
+                        <p class="about-img-caption">ГПОАУ БПК — БЛАГОВЕЩЕНСК / РОССИЯ</p>
+                    </div>
+                    <div class="flex-center">
+                        <div>
+                            <h3 class="edu-title">Информационные системы и программирование</h3>
+                            <p class="edu-text">Выпускник Благовещенского политехнического колледжа, окончил с отличием (красный диплом). В качестве дипломной работы разработал полноценный веб-сайт для АООО «Федерация самбо и дзюдо "Витязь"», который сейчас используется в реальной работе компании-заказчика.</p>
+                            <p class="edu-date">Среднее специальное · 2026</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WRITING -->
+    <section id="awards" class="section-padding">
+        <div class="max-w-7xl">
+            <div class="mb-16 fade-in">
+                <span class="section-label">Награды и участие</span>
+                <div class="section-label-line"></div>
+            </div>
+            <h2 class="section-title fade-in">ДОСТИЖЕНИЯ</h2>
+
+            <div class="list-item fade-in">
+                <div class="list-item-inner">
+                    <div>
+                        <h3 class="list-item-title">1 место по компетенции «Веб-технологии»</h3>
+                        <p class="list-item-sub">Региональный чемпионат «Профессионалы»</p>
+                    </div>
+                    <span class="list-item-year">Победа</span>
+                </div>
+            </div>
+            <div class="list-item fade-in">
+                <div class="list-item-inner">
+                    <div>
+                        <h3 class="list-item-title">Федеральный этап чемпионата «Профессионалы»</h3>
+                        <p class="list-item-sub">Представлял регион — г. Калуга</p>
+                    </div>
+                    <span class="list-item-year">Финал</span>
+                </div>
+            </div>
+            <div class="list-item fade-in">
+                <div class="list-item-inner">
+                    <div>
+                        <h3 class="list-item-title">3 место на Хакатоне «Амурский код»</h3>
+                        <p class="list-item-sub">Хакатон</p>
+                    </div>
+                    <span class="list-item-year">Призёр</span>
+                </div>
+            </div>
+            <div class="list-item fade-in">
+                <div class="list-item-inner">
+                    <div>
+                        <h3 class="list-item-title">Участие в Хакатоне CODDY11100</h3>
+                        <p class="list-item-sub">Хакатон</p>
+                    </div>
+                    <span class="list-item-year">Участник</span>
+                </div>
+            </div>
+            <div class="list-item fade-in">
+                <div class="list-item-inner">
+                    <div>
+                        <h3 class="list-item-title">Губернаторская IT-стипендия</h3>
+                        <p class="list-item-sub">Диплом на получение стипендии</p>
+                    </div>
+                    <span class="list-item-year">Диплом</span>
+                </div>
+            </div>
+            <div class="list-item fade-in">
+                <div class="list-item-inner">
+                    <div>
+                        <h3 class="list-item-title">1 места в научно-практических конференциях</h3>
+                        <p class="list-item-sub">Конференции на базе колледжа</p>
+                    </div>
+                    <span class="list-item-year">Победа</span>
+                </div>
+            </div>
+            <div style="border-top: 1px solid var(--border);"></div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section-padding">
+        <div class="max-w-7xl">
+            <div class="mb-16 fade-in">
+                <span class="section-label">Контакты</span>
+                <div class="section-label-line"></div>
+            </div>
+            <h2 class="contact-heading fade-in">Связаться</h2>
+            <div class="w-full-line fade-in"></div>
+
+            <div class="max-w-2xl" style="margin-bottom:48px;">
+                <div class="fade-in">
+                    <h3 class="contact-slow-title">ГОТОВ РАЗВИВАТЬСЯ<br>И ПРИМЕНЯТЬ ЗНАНИЯ<br>НА ПРАКТИКЕ</h3>
+                    <p class="contact-slow-sub">ПРЕДПОЧТИТЕЛЬНЫЙ СПОСОБ СВЯЗИ — ЭЛЕКТРОННАЯ ПОЧТА</p>
+                </div>
+            </div>
+
+            <div class="mt-16 pt-12 border-t-dim fade-in" style="border-top: 1px solid var(--border);">
+                <p style="font-size:14px; color:var(--text-dim); margin-bottom:32px; letter-spacing:0.1em; text-transform:uppercase;">Напишите или позвоните</p>
+                <div class="contact-direct" style="display:flex; flex-wrap:wrap; gap:32px;">
+                    <a href="mailto:bogdankra4954@gmail.com">bogdankra4954@gmail.com</a>
+                    <a href="tel:+79145783655">+7 914 578-36-55</a>
+                </div>
+            </div>
+
+            <footer>
+                <p>&copy; 2026 Богдан. Все права защищены.</p>
+                <p>Веб-дизайнер</p>
+            </footer>
+        </div>
+    </section>
+</main>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('open');
+    }
+
+    // Intersection Observer for fade-in animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Masonry Gallery
+    (function() {
+        const gallery = document.getElementById('masonryGallery');
+        if (!gallery) return;
+
+        function markLoaded(img) {
+            const item = img.closest('.masonry-item');
+            if (item) item.classList.add('loaded');
+        }
+
+        function init() {
+            gallery.querySelectorAll('.masonry-img').forEach(img => {
+                if (img.complete && img.naturalWidth) {
+                    markLoaded(img);
+                } else {
+                    img.addEventListener('load', () => markLoaded(img), { once: true });
+                    img.addEventListener('error', () => markLoaded(img), { once: true });
+                }
+            });
+        }
+
+        window.addMasonryImage = function(src, alt) {
+            const item = document.createElement('div');
+            item.className = 'masonry-item';
+            const img = document.createElement('img');
+            img.className = 'masonry-img';
+            img.src = src;
+            img.alt = alt || '';
+            item.appendChild(img);
+            gallery.appendChild(item);
+            img.addEventListener('load', () => markLoaded(img), { once: true });
+        };
+
+        if (document.readyState === 'complete') init();
+        else window.addEventListener('load', init);
+    })();
+
+    // Active nav link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-bottom-right a');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            if (window.scrollY >= sectionTop - 300 && window.scrollY < sectionTop + sectionHeight - 300) {
+                current = section.getAttribute('id');
+            }
+        });
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href');
+            if (href === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
