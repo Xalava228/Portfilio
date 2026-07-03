@@ -790,6 +790,7 @@
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
+            cursor: pointer;
         }
         .masonry-item.loaded {
             opacity: 1;
@@ -809,6 +810,99 @@
             .masonry-item.masonry-item-banner {
                 column-span: all;
             }
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(0, 0, 0, 0.92);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .lightbox.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .lightbox-content {
+            position: relative;
+            max-width: min(1200px, 100%);
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+        .lightbox-img {
+            max-width: 100%;
+            max-height: calc(90vh - 48px);
+            width: auto;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+        }
+        .lightbox-caption {
+            font-size: 14px;
+            color: #d1d5db;
+            text-align: center;
+            max-width: 720px;
+            line-height: 1.5;
+        }
+        .lightbox-close,
+        .lightbox-nav {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(10, 10, 10, 0.75);
+            color: #ffffff;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+        .lightbox-close:hover,
+        .lightbox-nav:hover {
+            background: rgba(31, 41, 55, 0.9);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        .lightbox-close {
+            top: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 9999px;
+            font-size: 28px;
+            line-height: 1;
+        }
+        .lightbox-nav {
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 9999px;
+            font-size: 24px;
+            line-height: 1;
+        }
+        .lightbox-prev { left: 24px; }
+        .lightbox-next { right: 24px; }
+        @media (max-width: 767px) {
+            .lightbox {
+                padding: 16px;
+            }
+            .lightbox-close {
+                top: 16px;
+                right: 16px;
+            }
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+            }
+            .lightbox-prev { left: 12px; }
+            .lightbox-next { right: 12px; }
         }
 
         .hero-image-wrapper img {
@@ -888,14 +982,14 @@
     <!-- HERO -->
     <section class="hero">
         <div class="hero-image-wrapper">
-            <img src="https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Богдан — веб-дизайнер">
+            <img src="images/graphic-works/nano-banana-2-gemini-4k-6a475483b0954c1fcbeeaf3e.png" alt="Богдан — веб-дизайнер">
             <div class="hero-overlay"></div>
         </div>
         <div class="hero-content">
             <div class="max-w-5xl">
                 <h1 class="hero-title">
-                    <span style="display:block; color:#ffffff;">БОГДАН</span>
-                    <span style="display:block; color:#ffffff;">ВЕБ-ДИЗАЙНЕР</span>
+                    <span style="display:block; color:#ffffff;">WEB-ДИЗАЙНЕР\</span>
+                    <span style="display:block; color:#ffffff;">РАЗРАБОТЧИК</span>
                 </h1>
                 <p class="hero-subtitle">Создаю адаптивные интерфейсы в Figma, провожу редизайн и доработку проектов. Победитель регионального чемпионата «Профессионалы» по веб-технологиям.</p>
             </div>
@@ -911,11 +1005,10 @@
 
             <div class="grid-2col mb-32 fade-in">
                 <div style="order:2;" class="lg-order-1">
-                    <img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Рабочее место дизайнера" class="about-img">
-                    <p class="about-img-caption">ДИЗАЙН ИНТЕРФЕЙСОВ — FIGMA</p>
+                    <img src="images/graphic-works/photo_2026-07-03_15-05-05.jpg" alt="Рабочее место дизайнера" class="about-img">
                 </div>
                 <div style="order:1;" class="lg-order-2 flex-center">
-                    <p class="about-text">Я — веб-дизайнер и выпускник специальности «Информационные системы и программирование» Благовещенского политехнического колледжа, окончивший с отличием. Разрабатываю адаптивные интерфейсы в Figma, провожу редизайн и доработку существующих проектов.</p>
+                    <p class="about-text">Меня зовут, Богдан — я веб-дизайнер\разработчик и выпускник специальности «Информационные системы и программирование» Благовещенского политехнического колледжа, окончивший с отличием. Разрабатываю адаптивные интерфейсы в Figma, провожу редизайн и доработку существующих проектов. Активно развиваюсь в нейросетях, т.к в знающих руках это очень сильный инструмент. </p>
                 </div>
             </div>
 
@@ -1053,6 +1146,16 @@
             </div>
         </div>
     </section>
+
+    <div class="lightbox" id="galleryLightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Просмотр работы">
+        <button class="lightbox-close" type="button" aria-label="Закрыть">&times;</button>
+        <button class="lightbox-nav lightbox-prev" type="button" aria-label="Предыдущая работа">&#8249;</button>
+        <button class="lightbox-nav lightbox-next" type="button" aria-label="Следующая работа">&#8250;</button>
+        <div class="lightbox-content">
+            <img class="lightbox-img" id="lightboxImg" src="" alt="">
+            <p class="lightbox-caption" id="lightboxCaption"></p>
+        </div>
+    </div>
 
     <!-- WORK -->
     <section id="work" class="section-padding bg-alt">
@@ -1238,12 +1341,69 @@
         const gallery = document.getElementById('masonryGallery');
         if (!gallery) return;
 
+        const lightbox = document.getElementById('galleryLightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const closeBtn = lightbox.querySelector('.lightbox-close');
+        const prevBtn = lightbox.querySelector('.lightbox-prev');
+        const nextBtn = lightbox.querySelector('.lightbox-next');
+        let currentIndex = 0;
+        let items = [];
+
+        function getItems() {
+            return Array.from(gallery.querySelectorAll('.masonry-item'));
+        }
+
         function markLoaded(img) {
             const item = img.closest('.masonry-item');
             if (item) item.classList.add('loaded');
         }
 
+        function openLightbox(index) {
+            items = getItems();
+            if (!items.length) return;
+
+            currentIndex = (index + items.length) % items.length;
+            const img = items[currentIndex].querySelector('.masonry-img');
+            if (!img) return;
+
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt || '';
+            lightboxCaption.textContent = img.alt || '';
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            closeBtn.focus();
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('is-open');
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            lightboxImg.src = '';
+        }
+
+        function showNext(step) {
+            openLightbox(currentIndex + step);
+        }
+
+        function bindItem(item, index) {
+            item.addEventListener('click', () => openLightbox(index));
+            item.setAttribute('tabindex', '0');
+            item.setAttribute('role', 'button');
+            item.setAttribute('aria-label', item.querySelector('.masonry-img')?.alt || 'Открыть работу');
+            item.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openLightbox(index);
+                }
+            });
+        }
+
         function init() {
+            items = getItems();
+            items.forEach((item, index) => bindItem(item, index));
+
             gallery.querySelectorAll('.masonry-img').forEach(img => {
                 if (img.complete && img.naturalWidth) {
                     markLoaded(img);
@@ -1254,6 +1414,27 @@
             });
         }
 
+        closeBtn.addEventListener('click', closeLightbox);
+        prevBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            showNext(-1);
+        });
+        nextBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            showNext(1);
+        });
+
+        lightbox.addEventListener('click', (event) => {
+            if (event.target === lightbox) closeLightbox();
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (!lightbox.classList.contains('is-open')) return;
+            if (event.key === 'Escape') closeLightbox();
+            if (event.key === 'ArrowLeft') showNext(-1);
+            if (event.key === 'ArrowRight') showNext(1);
+        });
+
         window.addMasonryImage = function(src, alt) {
             const item = document.createElement('div');
             item.className = 'masonry-item';
@@ -1263,6 +1444,7 @@
             img.alt = alt || '';
             item.appendChild(img);
             gallery.appendChild(item);
+            bindItem(item, getItems().length - 1);
             img.addEventListener('load', () => markLoaded(img), { once: true });
         };
 
