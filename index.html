@@ -455,6 +455,19 @@
             color: var(--text-dim);
         }
 
+
+        .edu-program-link {
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            transition: color 0.3s;
+        }
+        .edu-program-link:hover,
+        .edu-program-link:focus-visible { color: var(--text); }
+
         /* Writing / Speaking list */
         .list-item {
             display: block;
@@ -1201,6 +1214,20 @@
             <h2 class="section-title fade-in">ОБРАЗОВАНИЕ</h2>
 
             <div style="display:flex; flex-direction:column; gap:64px;">
+                <div class="grid-2col fade-in" style="gap:32px;">
+                    <div>
+                        <img src="images/education/tusur.png" alt="Главный корпус Томского государственного университета систем управления и радиоэлектроники" class="about-img" width="1024" height="686" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                        <p class="about-img-caption">ТУСУР — ТОМСК / РОССИЯ</p>
+                    </div>
+                    <div class="flex-center">
+                        <div>
+                            <h3 class="edu-title">Технологии искусственного интеллекта в бизнесе</h3>
+                            <p class="edu-text">В настоящее время обучаюсь в Томском государственном университете систем управления и радиоэлектроники (ТУСУР) по направлению 09.03.02 «Информационные системы и технологии». Профиль подготовки ориентирован на разработку и внедрение решений на основе искусственного интеллекта, автоматизацию бизнес-процессов и цифровую трансформацию.</p>
+                            <p class="edu-date">Высшее образование · Бакалавриат · В процессе обучения</p>
+                            <a class="edu-program-link" href="https://fdo.tusur.ru/directions/informacionnye-sistemy-i-texnologii-texnologii-iskusstvennogo-intellekta-v-biznese" target="_blank" rel="noopener noreferrer">Об образовательной программе <span aria-hidden="true">↗</span></a>
+                        </div>
+                    </div>
+                </div>
                 <div class="grid-2col fade-in" style="gap:32px;">
                     <div>
                         <img src="images/graphic-works/PXL_20220804_151119201-1024x768.jpg" alt="Благовещенский политехнический колледж" class="about-img">
