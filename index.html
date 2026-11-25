@@ -8,10 +8,19 @@
     <meta name="description" content="Богдан — веб-дизайнер. Создаю адаптивные интерфейсы и работаю в Figma.">
     <meta property="og:title" content="Богдан — Веб-дизайнер">
     <meta property="og:description" content="Веб-дизайнер, создаю адаптивные интерфейсы и работаю в Figma.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Xalava228/Portfilio/main/images/graphic-works/hero.webp">
+    <meta property="og:image:width" content="1920">
+    <meta property="og:image:height" content="1072">
+    <meta property="og:image:alt" content="Тёмная текстурная фотография на главной странице портфолио Богдана">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#0a0a0a">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://storage.yandexcloud.net" crossorigin>
+    <link rel="preload" as="image" href="images/graphic-works/hero.webp" fetchpriority="high">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script>document.documentElement.classList.add("js-reveal");</script>
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -65,11 +74,14 @@
         .hero {
             position: relative;
             height: 100vh;
+            height: 100svh;
+            min-height: 560px;
             width: 100%;
             overflow: hidden;
         }
         .hero-image-wrapper {
             position: absolute;
+            background-color: #0d0d0d;
             inset: 0;
             width: 100%;
             height: 100%;
@@ -108,6 +120,17 @@
         @media (min-width: 1024px) {
             .hero-content { padding-left: 64px; }
         }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: 28px; }
+        .hero-action {
+            display: inline-flex; align-items: center; gap: 12px; padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.28); color: rgba(255,255,255,0.78);
+            font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+            transition: color 0.25s ease, border-color 0.25s ease, gap 0.25s ease;
+        }
+        .hero-action:hover, .hero-action:focus-visible { color: #fff; border-color: #fff; gap: 18px; }
+        .hero-action-primary { color: #fff; border-color: rgba(255,255,255,0.72); }
+        @media (max-width: 767px) { .hero-actions { gap: 10px 20px; margin-top: 20px; } .hero-action { font-size: 10px; } }
+
         .hero-title {
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
@@ -625,6 +648,56 @@
         @media (min-width: 1024px) {
             .projects-grid { gap: 96px; }
         }
+
+        /* Selected project cases */
+        .case-intro {
+            max-width: 680px; margin: -36px 0 52px; color: var(--text-dim);
+            font-size: 15px; line-height: 1.75; font-weight: 300;
+        }
+        .case-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 52px 28px; }
+        @media (min-width: 768px) { .case-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px 28px; } }
+        .case-card { min-width: 0; }
+        .case-card-visual {
+            display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr);
+            aspect-ratio: 1.42 / 1; overflow: hidden; border: 1px solid var(--border); background: #0d0d0d;
+        }
+        .case-card-visual > a { display: block; min-width: 0; min-height: 0; overflow: hidden; background: #0d0d0d; }
+        .case-card-visual img {
+            display: block; width: 100%; height: 100%; object-fit: contain;
+            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .case-card:hover .case-card-visual img { transform: scale(1.025); }
+        .case-card-visual img.is-fallback { object-fit: contain; padding: 28px; }
+        .case-card-visual--pair {
+            grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; aspect-ratio: 1.42 / 1;
+            border: 0; background: transparent;
+        }
+        .case-card-visual--pair > a { border: 1px solid var(--border); }
+        .case-card-visual--triple {
+            grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: minmax(0, 2fr) minmax(0, 1fr);
+            gap: 8px; aspect-ratio: 1.42 / 1; border: 0; background: transparent;
+        }
+        .case-card-visual--triple > a:first-child { grid-column: 1 / -1; border: 1px solid var(--border); }
+        .case-card-visual--triple > a:not(:first-child) { border: 1px solid var(--border); }
+        .case-card-visual--banner { aspect-ratio: 1.85 / 1; }
+        .case-card-content { padding-top: 20px; }
+        .case-card-kicker {
+            display: flex; justify-content: space-between; gap: 12px; margin-bottom: 14px;
+            color: var(--text-faint); font-size: 10px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase;
+        }
+        .case-card-title {
+            margin: 0 0 12px; color: #fff; font-family: 'Montserrat', sans-serif;
+            font-size: clamp(22px, 2.1vw, 30px); font-weight: 700; line-height: 1.12; letter-spacing: -0.025em;
+        }
+        .case-card-desc { max-width: 560px; margin: 0 0 18px; color: #9ca3af; font-size: 14px; font-weight: 300; line-height: 1.75; }
+        .case-card-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+        .case-card-tags .work-tag { margin: 0; }
+        @media (max-width: 767px) {
+            .case-intro { margin: -24px 0 36px; font-size: 14px; }
+            .case-grid { gap: 42px; }
+            .case-card-title { font-size: 24px; }
+        }
+
         .project-card {
             display: grid;
             grid-template-columns: 1fr;
@@ -800,12 +873,16 @@
             break-inside: avoid;
             -webkit-column-break-inside: avoid;
             page-break-inside: avoid;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
             cursor: pointer;
         }
-        .masonry-item.loaded {
+        .js-reveal .masonry-item {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+        .js-reveal .masonry-item.loaded {
             opacity: 1;
             transform: translateY(0);
         }
@@ -933,13 +1010,30 @@
 
         /* Animations */
         .fade-in {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .js-reveal .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+        .js-reveal .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .fade-in, .masonry-item, .js-reveal .fade-in, .js-reveal .masonry-item {
+                opacity: 1 !important;
+                transform: none !important;
+            }
         }
 
         /* Order helpers for lg */
@@ -957,7 +1051,7 @@
 <!-- Mobile Navigation -->
 <div class="nav-mobile">
     <div>
-        <button class="nav-mobile-menu-btn" onclick="toggleMobileMenu()">Меню</button>
+        <button class="nav-mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMobileMenu()">Меню</button>
         <div class="nav-mobile-links" id="mobileMenu">
             <a href="#about">Обо мне</a>
             <a href="#skills">Навыки</a>
@@ -995,7 +1089,7 @@
     <!-- HERO -->
     <section class="hero">
         <div class="hero-image-wrapper">
-            <img src="images/graphic-works/nano-banana-2-gemini-4k-6a475483b0954c1fcbeeaf3e.png" alt="Богдан — веб-дизайнер">
+            <img src="images/graphic-works/hero.webp" alt="" aria-hidden="true" width="1920" height="1072" fetchpriority="high" loading="eager" decoding="async" onerror="this.onerror=null;this.src='images/graphic-works/nano-banana-2-gemini-4k-6a475483b0954c1fcbeeaf3e.png';">
             <div class="hero-overlay"></div>
         </div>
         <div class="hero-content">
@@ -1005,6 +1099,10 @@
                     <span style="display:block; color:#ffffff;">РАЗРАБОТЧИК</span>
                 </h1>
                 <p class="hero-subtitle">Создаю адаптивные интерфейсы в Figma, провожу редизайн и доработку проектов. Победитель регионального чемпионата «Профессионалы» по веб-технологиям.</p>
+                <div class="hero-actions">
+                    <a class="hero-action hero-action-primary" href="#projects">Смотреть проекты <span aria-hidden="true">↘</span></a>
+                    <a class="hero-action" href="#contact">Обсудить задачу <span aria-hidden="true">↗</span></a>
+                </div>
             </div>
         </div>
     </section>
@@ -1018,7 +1116,7 @@
 
             <div class="grid-2col mb-32 fade-in">
                 <div style="order:2;" class="lg-order-1">
-                    <img src="images/graphic-works/photo_2026-07-03_15-05-05.jpg" alt="Рабочее место дизайнера" class="about-img">
+                    <img src="images/graphic-works/photo_2026-07-03_15-05-05.jpg" alt="Рабочее место дизайнера" class="about-img" loading="lazy" decoding="async" width="640" height="640">
                 </div>
                 <div style="order:1;" class="lg-order-2 flex-center">
                     <p class="about-text">Меня зовут, Богдан — я веб-дизайнер\разработчик и выпускник специальности «Информационные системы и программирование» Благовещенского политехнического колледжа, окончивший с отличием. Разрабатываю адаптивные интерфейсы в Figma, провожу редизайн и доработку существующих проектов. Активно развиваюсь в нейросетях, т.к в знающих руках это очень сильный инструмент. </p>
@@ -1032,7 +1130,7 @@
 
             <div class="grid-2col fade-in">
                 <div>
-                    <img src="images/graphic-works/Лого.png" alt="Веб-разработка" class="about-img">
+                    <img src="images/graphic-works/Лого.png" alt="Веб-разработка" class="about-img" loading="lazy" decoding="async" width="5133" height="5133">
                 </div>
                 <div class="flex-center">
                     <p class="about-text">В качестве дипломной работы разработал полноценный веб-сайт для АООО «Федерация самбо и дзюдо "Витязь"», который сейчас используется в реальной работе компании-заказчика. Ответственно подхожу к задачам, быстро нахожу общий язык с коллегами и конструктивно реагирую на обратную связь. Активно интересуюсь и изучаю нейросети.</p>
@@ -1069,55 +1167,86 @@
             </div>
             <h2 class="section-title fade-in">ПРОЕКТЫ</h2>
 
-            <div class="projects-grid">
-                <div class="project-card fade-in">
-                    <div class="project-info">
-                        <p class="project-number">01 — ВЕБ-САЙТ</p>
-                        <h3 class="project-title">Спортивный клуб «Витязь»</h3>
-                        <p class="project-desc">Разработал полноценный веб-сайт для АООО «Спортивный клуб самбо и дзюдо "Витязь"» с административной панелью управления. Проект используется в реальной работе компании-заказчика.</p>
-                        <div class="work-tags">
-                            <span class="work-tag">UI/UX</span>
-                            <span class="work-tag">Адаптивная вёрстка</span>
-                            <span class="work-tag">Админ-панель</span>
-                        </div>
-                    </div>
-                    <div class="project-media">
-                        <img src="https://storage.yandexcloud.net/timenote/tmp/5d23ea6e47445da17b53fed24b6364fc5a35507474467ccf1220d3d0bc1b1fb3.jpg" alt="Веб-сайт клуба Витязь">
-                    </div>
-                </div>
+            <p class="case-intro fade-in">Избранные работы: веб-дизайн, разработка сайтов и рекламная графика. В каждом проекте показываю именно ту часть работы, которую выполнял сам.</p>
 
-                <div class="project-card fade-in">
-                    <div class="project-info">
-                        <p class="project-number">02 — БАННЕРЫ</p>
-                        <h3 class="project-title">Разработка баннеров INVI-SHOP</h3>
-                        <p class="project-desc">Создал рекламные баннеры для интернет-магазина invi-shop: акценты на новинках и ассортименте, чистая типографика и продуманная композиция для веб-размещения.</p>
-                        <div class="work-tags">
-                            <span class="work-tag">Графический дизайн</span>
-                            <span class="work-tag">Баннеры</span>
-                            <span class="work-tag">Веб-графика</span>
-                        </div>
+            <div class="case-grid">
+                <article class="case-card fade-in">
+                    <div class="case-card-visual">
+                        <a href="https://storage.yandexcloud.net/timenote/tmp/5d23ea6e47445da17b53fed24b6364fc5a35507474467ccf1220d3d0bc1b1fb3.jpg" target="_blank" rel="noopener noreferrer" aria-label="Открыть изображение сайта клуба «Витязь»">
+                            <img src="https://storage.yandexcloud.net/timenote/tmp/5d23ea6e47445da17b53fed24b6364fc5a35507474467ccf1220d3d0bc1b1fb3.jpg" alt="Сайт спортивного клуба «Витязь»" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='images/graphic-works/Лого.png';this.alt='Эмблема спортивного клуба «Витязь»';this.closest('a').href='images/graphic-works/Лого.png';this.classList.add('is-fallback');">
+                        </a>
                     </div>
-                    <div class="project-media stacked" style="align-self: start;">
-                        <img src="images/graphic-works/onebanner.png" alt="Баннер INVI-SHOP">
+                    <div class="case-card-content">
+                        <div class="case-card-kicker"><span>01 / Разработка</span><span>Веб-сайт</span></div>
+                        <h3 class="case-card-title">Спортивный клуб «Витязь»</h3>
+                        <p class="case-card-desc">Разработал сайт для АООО «Федерация самбо и дзюдо "Витязь"» с административной панелью управления. Проект используется в реальной работе компании-заказчика.</p>
+                        <div class="case-card-tags"><span class="work-tag">Разработка</span><span class="work-tag">Адаптивная вёрстка</span><span class="work-tag">Админ-панель</span></div>
                     </div>
-                </div>
+                </article>
 
-                <div class="project-card fade-in">
-                    <div class="project-info">
-                        <p class="project-number">03 — АДАПТАЦИЯ</p>
-                        <h3 class="project-title">Адаптация баннеров MARIO-STORM</h3>
-                        <p class="project-desc">Адаптировал рекламные баннеры для стоматологической клиники «Марио» под разные разрешения — от горизонтальных до квадратных форматов с сохранением иерархии и читаемости.</p>
-                        <div class="work-tags">
-                            <span class="work-tag">Адаптация форматов</span>
-                            <span class="work-tag">Баннеры</span>
-                            <span class="work-tag">Ретаргет размеров</span>
-                        </div>
+                <article class="case-card fade-in">
+                    <div class="case-card-visual case-card-visual--triple">
+                        <a href="images/graphic-works/titanklav-design.png" target="_blank" rel="noopener noreferrer" aria-label="Открыть макет сайта Титанклав"><img src="images/graphic-works/titanklav-design.png" alt="Дизайн интернет-магазина «Титанклав»" width="1024" height="1024" loading="lazy" decoding="async"></a>
+                        <a href="images/graphic-works/Frame 20.png" target="_blank" rel="noopener noreferrer" aria-label="Открыть баннер Титанклав"><img src="images/graphic-works/Frame 20.png" alt="Рекламный баннер Титанклав" width="2880" height="675" loading="lazy" decoding="async"></a>
+                        <a href="images/graphic-works/Frame 16.png" target="_blank" rel="noopener noreferrer" aria-label="Открыть баннер с шинами"><img src="images/graphic-works/Frame 16.png" alt="Рекламный баннер с шинами" width="1920" height="450" loading="lazy" decoding="async"></a>
                     </div>
-                    <div class="project-media stacked" style="align-self: start;">
-                        <img src="https://storage.yandexcloud.net/timenote/tmp/db6804c82a2db0ee352b9314c477305c13a01f52aeed7bcf926050b8cf28340b.jpg" alt="Баннер Марио горизонтальный">
+                    <div class="case-card-content">
+                        <div class="case-card-kicker"><span>02 / Веб-дизайн</span><span>E-commerce</span></div>
+                        <h3 class="case-card-title">«Титанклав» — интернет-магазин шин и дисков</h3>
+                        <p class="case-card-desc">Дизайн интернет-магазина и рекламные материалы проекта: визуальная подача ассортимента, оформление страниц и баннеры для продвижения.</p>
+                        <div class="case-card-tags"><span class="work-tag">Веб-дизайн</span><span class="work-tag">E-commerce</span><span class="work-tag">Баннеры</span></div>
+                    </div>
+                </article>
 
+                <article class="case-card fade-in">
+                    <div class="case-card-visual case-card-visual--pair">
+                        <a href="images/graphic-works/amur-gma-design.png" target="_blank" rel="noopener noreferrer" aria-label="Открыть дизайн сайта Амурской ГМА"><img src="images/graphic-works/amur-gma-design.png" alt="Дизайн сайта Амурской государственной медицинской академии" width="1024" height="1024" loading="lazy" decoding="async"></a>
+                        <a href="images/graphic-works/amur-gma-works.png" target="_blank" rel="noopener noreferrer" aria-label="Открыть адаптивные экраны сайта Амурской ГМА"><img src="images/graphic-works/amur-gma-works.png" alt="Адаптивные экраны сайта Амурской ГМА" width="576" height="1024" loading="lazy" decoding="async"></a>
                     </div>
-                </div>
+                    <div class="case-card-content">
+                        <div class="case-card-kicker"><span>03 / Веб-дизайн</span><span>Образование</span></div>
+                        <h3 class="case-card-title">Амурская ГМА</h3>
+                        <p class="case-card-desc">Дизайн сайта образовательного учреждения и адаптивные представления для мобильных экранов. В работе — информационная структура и удобная подача материалов.</p>
+                        <div class="case-card-tags"><span class="work-tag">UI/UX</span><span class="work-tag">Адаптивный дизайн</span><span class="work-tag">Figma</span></div>
+                    </div>
+                </article>
+
+                <article class="case-card fade-in">
+                    <div class="case-card-visual">
+                        <a href="images/graphic-works/brend-motors.png" target="_blank" rel="noopener noreferrer" aria-label="Открыть макет сайта Бренд Моторс"><img src="images/graphic-works/brend-motors.png" alt="Дизайн сайта-каталога спецтехники «Бренд Моторс»" width="1024" height="1024" loading="lazy" decoding="async"></a>
+                    </div>
+                    <div class="case-card-content">
+                        <div class="case-card-kicker"><span>04 / Веб-дизайн</span><span>Каталог</span></div>
+                        <h3 class="case-card-title">«Бренд Моторс» — каталог спецтехники</h3>
+                        <p class="case-card-desc">Макет сайта-каталога спецтехники с акцентом на презентацию техники, структуру каталога и удобное знакомство с предложением компании.</p>
+                        <div class="case-card-tags"><span class="work-tag">UI/UX</span><span class="work-tag">Каталог</span><span class="work-tag">Figma</span></div>
+                    </div>
+                </article>
+
+                <article class="case-card fade-in">
+                    <div class="case-card-visual case-card-visual--pair">
+                        <a href="images/graphic-works/Frame 5112.png" target="_blank" rel="noopener noreferrer" aria-label="Открыть баннер лазерных станков"><img src="images/graphic-works/Frame 5112.png" alt="Рекламный баннер лазерных станков для резки металла" width="704" height="466" loading="lazy" decoding="async"></a>
+                        <a href="images/graphic-works/Frame 5101.png" target="_blank" rel="noopener noreferrer" aria-label="Открыть баннер станков для предприятий"><img src="images/graphic-works/Frame 5101.png" alt="Рекламный баннер ЧПУ-станков для предприятий" width="704" height="468" loading="lazy" decoding="async"></a>
+                    </div>
+                    <div class="case-card-content">
+                        <div class="case-card-kicker"><span>05 / Рекламная графика</span><span>Промышленность</span></div>
+                        <h3 class="case-card-title">Баннеры для промышленного оборудования</h3>
+                        <p class="case-card-desc">Рекламные материалы для станков и производственного оборудования: акцент на продукте, ключевых преимуществах и понятном коммерческом предложении.</p>
+                        <div class="case-card-tags"><span class="work-tag">Баннеры</span><span class="work-tag">Рекламная графика</span><span class="work-tag">Композиция</span></div>
+                    </div>
+                </article>
+
+                <article class="case-card fade-in">
+                    <div class="case-card-visual case-card-visual--banner">
+                        <a href="images/graphic-works/onebanner.png" target="_blank" rel="noopener noreferrer" aria-label="Открыть баннер выставки ПИР Экспо"><img src="images/graphic-works/onebanner.png" alt="Рекламный баннер выставки «ПИР Экспо 2025»" width="1920" height="520" loading="lazy" decoding="async"></a>
+                    </div>
+                    <div class="case-card-content">
+                        <div class="case-card-kicker"><span>06 / Рекламная графика</span><span>Мероприятия</span></div>
+                        <h3 class="case-card-title">«ПИР Экспо 2025»</h3>
+                        <p class="case-card-desc">Рекламный баннер выставки: работа с визуальной композицией, текстовой иерархией и акцентом на событии.</p>
+                        <div class="case-card-tags"><span class="work-tag">Баннер</span><span class="work-tag">Графический дизайн</span></div>
+                    </div>
+                </article>
             </div>
 
             <!-- Gallery -->
@@ -1126,35 +1255,35 @@
                     <span class="section-label">Графические работы</span>
                 </div>
                 <div class="masonry-gallery" id="masonryGallery">
-                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/82eef2e0a1165b25707f2b18905817b1bc4250e1b072dbc772671597ef5bd7ad.jpg" alt="HiWatch камера" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/655ea28d6d981f42449b9f6878a348a5f5b49cbfd40d00f747e3ac917eb7fd82.jpg" alt="FLOW регистраторы" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="images/graphic-works/Frame 20.png" alt="Баннер Титанклав" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/3760f4f041f7dcfbad2e1557edfaddcc913be94a623ac288ee5da4281cc9b4cd.jpg" alt="Видеодомофон FLOW" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/588d37fddf6e27badd0f467e0fbabf40bfdad47db46a006c0f7f8630a92e979f.jpg" alt="Охранная сигнализация" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/2bd48eb28060e7e29385c9e3e4044eaedde760b869791188f2385b2029721940.jpg" alt="Пожарное оборудование" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/f00dbe7ded6b7dd22519e6fbfb7d9bb0db3aa04157c666da8492c61fce4b2c68.jpg" alt="Центр Пищевых Технологий — портфолио 1" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/6d14794758615de79e484d4c2d6549d41de150f59d2fd55c479640831146265f.jpg" alt="Центр Пищевых Технологий — портфолио 2" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/b50194db5f5eabcd3f29dd166b63b566ba5baa94a131854747a014c58dfcf48b.jpg" alt="Амурстрой — портфолио 1" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/e8d65e01ceb84526098c56a71263f25f1148cd96f2adfaae3fcd05d580448120.jpg" alt="Амурстрой — портфолио 2" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/e5ba984c5d444205b1fb865c6f9dd64b864d4bdeb955042f9124d2773813513c.jpg" alt="ФКУ Дирекция космодрома Восточный" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="images/graphic-works/amur-gma-design.png" alt="Амурская ГМА — сайт образовательного учреждения" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="images/graphic-works/НовыйБаннер.png" alt="Баннер Stels" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="images/graphic-works/amur-gma-works.png" alt="Амурская ГМА — проектирование, дизайн и разработка на 1С-Битрикс" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="images/graphic-works/brend-motors.png" alt="Бренд Моторс — сайт-каталог спецтехники" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="images/graphic-works/titanklav-design.png" alt="Титанклав — интернет-магазин шин и дисков" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="images/graphic-works/titanklav-works.png" alt="Титанклав — внедрение на 1С-Битрикс, интеграция с 1С и доставкой" class="masonry-img"></div>
-                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame.png" alt="Home Master — рекламный баннер производителя окон и дверей" class="masonry-img"></div>
-                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/onebanner.png" alt="Пир Экспо 2025 — рекламный баннер выставки" class="masonry-img"></div>
-                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/banner.png" alt="ЧПУ станки для предприятий — рекламный баннер" class="masonry-img"></div>
-                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 5112.png" alt="Лазерные станки для резки металла — рекламный баннер" class="masonry-img"></div>
-                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 5101.png" alt="ЧПУ станки для предприятий — промо-баннер со станком BR 650" class="masonry-img"></div>
-                    <div class="masonry-item"><img src="images/graphic-works/Frame 9.png" alt="Тайский бокс — рекламный баннер с расписанием занятий" class="masonry-img"></div>
-                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 27.png" alt="Поступление легковых шин HAIDA — баннер" class="masonry-img"></div>
-                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 16.png" alt="Купи комплект летних шин — промо-баннер" class="masonry-img"></div>
-                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 3.png" alt="Группа компаний Титанклав — графический баннер" class="masonry-img"></div>
-                    <div class="masonry-item masonry-item-banner"><img src="https://storage.yandexcloud.net/timenote/tmp/91708aa01e0b0bfb5dd650d57c360b8c5eccfbaa279fa048a1ed426d062c327c.jpg" alt="Баннер Марио квадратный" class="masonry-img"></div>
-                    <div class="masonry-item masonry-item-banner"><img src="https://storage.yandexcloud.net/timenote/tmp/5b61dcb3af77012d56315e1e3eb7dfeb63a23493d7501faeec97a2b5654d398e.jpg" alt="Баннер INVI-SHOP" class="masonry-img"></div>
-                    <div class="masonry-item masonry-item-banner"><img src="https://storage.yandexcloud.net/timenote/tmp/c997e9df59541953508ce4358ee36e3c473363c0da8e674979d7ed5de551410a.jpg" alt="Баннер INVI-SHOP" class="masonry-img"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/82eef2e0a1165b25707f2b18905817b1bc4250e1b072dbc772671597ef5bd7ad.jpg" alt="HiWatch камера" class="masonry-img" loading="lazy" decoding="async"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/655ea28d6d981f42449b9f6878a348a5f5b49cbfd40d00f747e3ac917eb7fd82.jpg" alt="FLOW регистраторы" class="masonry-img" loading="lazy" decoding="async"></div>
+                    <div class="masonry-item"><img src="images/graphic-works/Frame 20.png" alt="Баннер Титанклав" class="masonry-img" loading="lazy" decoding="async" width="2880" height="675"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/3760f4f041f7dcfbad2e1557edfaddcc913be94a623ac288ee5da4281cc9b4cd.jpg" alt="Видеодомофон FLOW" class="masonry-img" loading="lazy" decoding="async"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/588d37fddf6e27badd0f467e0fbabf40bfdad47db46a006c0f7f8630a92e979f.jpg" alt="Охранная сигнализация" class="masonry-img" loading="lazy" decoding="async"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/2bd48eb28060e7e29385c9e3e4044eaedde760b869791188f2385b2029721940.jpg" alt="Пожарное оборудование" class="masonry-img" loading="lazy" decoding="async"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/f00dbe7ded6b7dd22519e6fbfb7d9bb0db3aa04157c666da8492c61fce4b2c68.jpg" alt="Центр Пищевых Технологий — портфолио 1" class="masonry-img" loading="lazy" decoding="async"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/6d14794758615de79e484d4c2d6549d41de150f59d2fd55c479640831146265f.jpg" alt="Центр Пищевых Технологий — портфолио 2" class="masonry-img" loading="lazy" decoding="async"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/b50194db5f5eabcd3f29dd166b63b566ba5baa94a131854747a014c58dfcf48b.jpg" alt="Амурстрой — портфолио 1" class="masonry-img" loading="lazy" decoding="async"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/e8d65e01ceb84526098c56a71263f25f1148cd96f2adfaae3fcd05d580448120.jpg" alt="Амурстрой — портфолио 2" class="masonry-img" loading="lazy" decoding="async"></div>
+                    <div class="masonry-item"><img src="https://storage.yandexcloud.net/timenote/tmp/e5ba984c5d444205b1fb865c6f9dd64b864d4bdeb955042f9124d2773813513c.jpg" alt="ФКУ Дирекция космодрома Восточный" class="masonry-img" loading="lazy" decoding="async"></div>
+                    <div class="masonry-item"><img src="images/graphic-works/amur-gma-design.png" alt="Амурская ГМА — сайт образовательного учреждения" class="masonry-img" loading="lazy" decoding="async" width="1024" height="1024"></div>
+                    <div class="masonry-item"><img src="images/graphic-works/НовыйБаннер.png" alt="Баннер Stels" class="masonry-img" loading="lazy" decoding="async" width="1923" height="583"></div>
+                    <div class="masonry-item"><img src="images/graphic-works/amur-gma-works.png" alt="Амурская ГМА — проектирование, дизайн и разработка на 1С-Битрикс" class="masonry-img" loading="lazy" decoding="async" width="576" height="1024"></div>
+                    <div class="masonry-item"><img src="images/graphic-works/brend-motors.png" alt="Бренд Моторс — сайт-каталог спецтехники" class="masonry-img" loading="lazy" decoding="async" width="1024" height="1024"></div>
+                    <div class="masonry-item"><img src="images/graphic-works/titanklav-design.png" alt="Титанклав — интернет-магазин шин и дисков" class="masonry-img" loading="lazy" decoding="async" width="1024" height="1024"></div>
+                    <div class="masonry-item"><img src="images/graphic-works/titanklav-works.png" alt="Титанклав — внедрение на 1С-Битрикс, интеграция с 1С и доставкой" class="masonry-img" loading="lazy" decoding="async" width="576" height="1024"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame.png" alt="Home Master — рекламный баннер производителя окон и дверей" class="masonry-img" loading="lazy" decoding="async" width="1352" height="660"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/onebanner.png" alt="Пир Экспо 2025 — рекламный баннер выставки" class="masonry-img" loading="lazy" decoding="async" width="1920" height="520"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/banner.png" alt="ЧПУ станки для предприятий — рекламный баннер" class="masonry-img" loading="lazy" decoding="async" width="1720" height="590"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 5112.png" alt="Лазерные станки для резки металла — рекламный баннер" class="masonry-img" loading="lazy" decoding="async" width="704" height="466"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 5101.png" alt="ЧПУ станки для предприятий — промо-баннер со станком BR 650" class="masonry-img" loading="lazy" decoding="async" width="704" height="468"></div>
+                    <div class="masonry-item"><img src="images/graphic-works/Frame 9.png" alt="Тайский бокс — рекламный баннер с расписанием занятий" class="masonry-img" loading="lazy" decoding="async" width="900" height="1600"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 27.png" alt="Поступление легковых шин HAIDA — баннер" class="masonry-img" loading="lazy" decoding="async" width="1920" height="450"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 16.png" alt="Купи комплект летних шин — промо-баннер" class="masonry-img" loading="lazy" decoding="async" width="1920" height="450"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="images/graphic-works/Frame 3.png" alt="Группа компаний Титанклав — графический баннер" class="masonry-img" loading="lazy" decoding="async" width="916" height="326"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="https://storage.yandexcloud.net/timenote/tmp/91708aa01e0b0bfb5dd650d57c360b8c5eccfbaa279fa048a1ed426d062c327c.jpg" alt="Баннер Марио квадратный" class="masonry-img" loading="lazy" decoding="async"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="https://storage.yandexcloud.net/timenote/tmp/5b61dcb3af77012d56315e1e3eb7dfeb63a23493d7501faeec97a2b5654d398e.jpg" alt="Баннер INVI-SHOP" class="masonry-img" loading="lazy" decoding="async"></div>
+                    <div class="masonry-item masonry-item-banner"><img src="https://storage.yandexcloud.net/timenote/tmp/c997e9df59541953508ce4358ee36e3c473363c0da8e674979d7ed5de551410a.jpg" alt="Баннер для выставки ПИР Экспо 2025" class="masonry-img" loading="lazy" decoding="async"></div>
                 </div>
             </div>
         </div>
@@ -1230,7 +1359,7 @@
                 </div>
                 <div class="grid-2col fade-in" style="gap:32px;">
                     <div>
-                        <img src="images/graphic-works/PXL_20220804_151119201-1024x768.jpg" alt="Благовещенский политехнический колледж" class="about-img">
+                        <img src="images/graphic-works/PXL_20220804_151119201-1024x768.jpg" alt="Благовещенский политехнический колледж" class="about-img" loading="lazy" decoding="async" width="1024" height="768">
                         <p class="about-img-caption">ГПОАУ БПК — БЛАГОВЕЩЕНСК / РОССИЯ</p>
                     </div>
                     <div class="flex-center">
@@ -1344,24 +1473,49 @@
 </main>
 
 <script>
-    function toggleMobileMenu() {
+    function setMobileMenu(open) {
         const menu = document.getElementById('mobileMenu');
-        menu.classList.toggle('open');
+        const button = document.querySelector('.nav-mobile-menu-btn');
+        if (!menu || !button) return;
+        menu.classList.toggle('open', open);
+        button.setAttribute('aria-expanded', String(open));
     }
 
-    // Intersection Observer for fade-in animations
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        setMobileMenu(!menu?.classList.contains('open'));
+    }
+
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenu) {
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => setMobileMenu(false));
         });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+    }
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') setMobileMenu(false);
     });
 
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    // Reveal elements only when supported; otherwise keep all content visible.
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.12,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.fade-in').forEach(el => revealObserver.observe(el));
+    } else {
+        document.documentElement.classList.remove('js-reveal');
+        document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+    }
 
     // Masonry Gallery
     (function() {
@@ -1414,29 +1568,38 @@
             openLightbox(currentIndex + step);
         }
 
-        function bindItem(item, index) {
-            item.addEventListener('click', () => openLightbox(index));
+        function bindItem(item) {
+            const openItem = () => {
+                const index = getItems().indexOf(item);
+                if (index >= 0) openLightbox(index);
+            };
+            item.addEventListener('click', openItem);
             item.setAttribute('tabindex', '0');
             item.setAttribute('role', 'button');
             item.setAttribute('aria-label', item.querySelector('.masonry-img')?.alt || 'Открыть работу');
             item.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault();
-                    openLightbox(index);
+                    openItem();
                 }
             });
         }
 
         function init() {
             items = getItems();
-            items.forEach((item, index) => bindItem(item, index));
+            items.forEach(item => bindItem(item));
 
             gallery.querySelectorAll('.masonry-img').forEach(img => {
-                if (img.complete && img.naturalWidth) {
-                    markLoaded(img);
+                const item = img.closest('.masonry-item');
+                const removeBrokenItem = () => {
+                    if (item) item.remove();
+                };
+                if (img.complete) {
+                    if (img.naturalWidth) markLoaded(img);
+                    else removeBrokenItem();
                 } else {
                     img.addEventListener('load', () => markLoaded(img), { once: true });
-                    img.addEventListener('error', () => markLoaded(img), { once: true });
+                    img.addEventListener('error', removeBrokenItem, { once: true });
                 }
             });
         }
@@ -1471,35 +1634,44 @@
             img.alt = alt || '';
             item.appendChild(img);
             gallery.appendChild(item);
-            bindItem(item, getItems().length - 1);
+            bindItem(item);
             img.addEventListener('load', () => markLoaded(img), { once: true });
+            img.addEventListener('error', () => item.remove(), { once: true });
         };
 
-        if (document.readyState === 'complete') init();
-        else window.addEventListener('load', init);
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init, { once: true });
+        } else {
+            init();
+        }
     })();
 
     // Active nav link on scroll
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-bottom-right a');
 
-    window.addEventListener('scroll', () => {
+    let navUpdatePending = false;
+    function updateActiveNavigation() {
         let current = '';
+        const marker = window.scrollY + 300;
         sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            if (window.scrollY >= sectionTop - 300 && window.scrollY < sectionTop + sectionHeight - 300) {
-                current = section.getAttribute('id');
+            const top = section.offsetTop;
+            if (marker >= top && marker < top + section.offsetHeight) {
+                current = section.id;
             }
         });
         navLinks.forEach(link => {
-            link.classList.remove('active');
-            const href = link.getAttribute('href');
-            if (href === '#' + current) {
-                link.classList.add('active');
-            }
+            link.classList.toggle('active', link.getAttribute('href') === '#' + current);
         });
-    });
+        navUpdatePending = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (navUpdatePending) return;
+        navUpdatePending = true;
+        window.requestAnimationFrame(updateActiveNavigation);
+    }, { passive: true });
+    updateActiveNavigation();
 </script>
 
 </body>
